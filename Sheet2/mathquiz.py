@@ -18,3 +18,4 @@ for _  in range(numquestions):
         print('No, I am afraid the answer is ' +str(correct) + '.')
     
 print('I asked you 10 questions. You got ' + str(num_correct) +' of them correct.')
+print('Well done!')
