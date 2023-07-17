@@ -28,6 +28,15 @@ while True:
         player_y += 1
     if key == 'Down': 
         player_y -= 1
+    if player_x >= 63:
+        player_x= 63
+    if player_x <=0:
+        player_x=0
+    if player_y >=47:
+        player_y=47
+    if player_y <=0:
+        player_y = 0
+
     if key == 'q':
         break
 
