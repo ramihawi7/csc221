@@ -51,7 +51,12 @@ def rob(i):
             robot_y[ra] += 1
         elif player_y < robot_y[ra]:
             robot_y[ra] -= 1
+junk_x=[]
+junk_y=[]
+junk=[]
+
 junk = Box(10 * junk_x,10 *  junk_y, 10,10,color = color.GREEN)
+junk.append(junk)
 def py():
     global player_x
     global player_y 
