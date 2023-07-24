@@ -22,24 +22,36 @@ def teleport():
             player_x = new_x
             player_y = new_y
             break
-
-
-def rob():
+ 
+def rob(i):
     global robot
     global game
     global player_x
     global player_y 
     global robot_x
     global robot_y
-    robot = Circle((10 * robot_x + 5, 10 * robot_y + 5), 5, filled=True, color="Red")
-    if player_x > robot_x:
-        robot_x += 1
-    elif player_x < robot_x:
-        robot_x -= 1
-    if player_y > robot_y:
-        robot_y += 1
-    elif player_y < robot_y:
-        robot_y -= 1
+    
+    if i % 2 == 0:    
+        x = randint(2, 62)
+        y = randint(2,47)
+        while x > player_x-10 and x < player_x+10:
+            x = randint(2, 47)
+        while y > player_y-10 and y < player_y+10:
+            y = randint(2, 63)
+        robot_x.append(x)
+        robot_y.append(y)
+        
+    for ra in range(len(robot_x)-1): 
+        robot.append(Circle((10 * robot_x[ra] + 5, 10 * robot_y[ra] + 5), 5, filled=True, color="Red"))
+        if player_x > robot_x[ra]:
+            robot_x[ra] += 1
+        elif player_x < robot_x[ra]:
+            robot_x[ra] -= 1
+        if player_y > robot_y[ra]:
+            robot_y[ra] += 1
+        elif player_y < robot_y[ra]:
+            robot_y[ra] -= 1
+junk = Box(10 * junk_x,10 *  junk_y, 10,10,color = color.GREEN)
 def py():
     global player_x
     global player_y 
@@ -49,29 +61,30 @@ def py():
     
     player = Circle((10 * player_x + 5, 10 * player_y + 5), 5, filled=True)
     key = update_when('key_pressed')
-    remove_from_screen(robot)
+    for ra in robot:
+        remove_from_screen(ra)
     Text(key,(320, 100), size=12)
-    if key == 'KP_6':
+    if key == 'KP_Right 'or key == 'd':
         player_x += 1
-    elif key == 'KP_4':
+    elif key == 'KP_Left 'or key == 'a':
         player_x -= 1
-    elif key == 'KP_8':
+    elif key == 'KP_Up'or key == 'w':
         player_y += 1
-    elif key == 'KP_2':
+    elif key == 'KP_Down'or key == 'x':
         player_y -= 1
-    elif key == 'KP_9':
+    elif key == 'KP_Prior' or key == 'e':
         player_x += 1 
         player_y += 1
-    elif key == 'KP_7':
+    elif key == 'KP_Home' or key == 'q':
         player_x -= 1 
         player_y += 1 
-    elif key == 'KP_1':
+    elif key == 'KP_End' or key == 'z':
         player_x -= 1
         player_y -= 1 
-    elif key == 'KP_3': 
+    elif key == 'KP_Next' or key == 'c': 
         player_x += 1 
         player_y -= 1
-    if key == 't':
+    elif key == 't':
         teleport()
     if player_x == 63:
         player_x = 1
@@ -98,37 +111,43 @@ def start_screen():
     update_when('key_pressed')
     clear_screen()
 
-def GGame():
+def GGame(i):
     start_screen()
     lines()
     global game
-    global player_x
+    global player_x 
     global player_y 
     global robot_x
     global robot_y
     global robot
-    robot = Circle((1, 1), 1, filled=True)
+    robot_x = []
+    robot_y = []
+    robot = []
     game = True
     player_x = randint(2,63)
     player_y = randint(2,47)
-    robot_x = randint(2, 62)
-    robot_y = randint(2, 47)
-    while robot_x > player_x-10 and robot_x < player_x+10:
-        robot_x = randint(2, 47)
-    while robot_x > player_x-10 and robot_x < player_x+10:
-        robot_y = randint(2, 63)
+    x = randint(2, 62)
+    y = randint(2, 47)
+    while x > player_x-10 and x < player_x+10:
+        x = randint(2, 47)
+    while y > player_y-10 and y < player_x+10:
+        y = randint(2, 63)
+    robot_x.append(x)
+    robot_y.append(y)
     while game:
-        if player_x == robot_x and player_y == robot_y:
-            game = False
+        i += 1
+        for mm in range(len(robot_x)):
+            if player_x == robot_x[mm] and player_y == robot_y[mm]:
+                game = False
         py()
-        rob()
+        rob(i)
 
     lost = loose()
     if not lost:
-        GGame()
+        GGame(i)
 
 
 begin_graphics(title = "Robots")
-
-GGame()
+i = 0
+GGame(i)
 end_graphics()
